@@ -1,0 +1,4 @@
+<resources>
+    <!-- Whether to spoof device as Pixel XL for Google Photos -->
+    <java-symbol type="bool" name="config_spoofGooglePhotos" />
+</resources>
