@@ -4911,10 +4911,19 @@
   <java-symbol type="id" name="language_picker_item" />
   <java-symbol type="id" name="language_picker_header" />
 
+  <!-- Button that opens the screen with details of an application error -->
+  <java-symbol type="string" name="aerr_show_details" />
+
   <java-symbol type="dimen" name="status_bar_height_default" />
 
   <!-- Whether to show weather on the lockscreen by default. -->
   <java-symbol type="bool" name="config_lockscreenWeatherEnabledByDefault" />
+
+  <java-symbol type="string" name="notification_action_dont_show_again" />
+
+  <java-symbol type="string" name="notification_channel_missing_permission" />
+  <java-symbol type="string" name="missing_sensors_permission_title" />
+  <java-symbol type="string" name="missing_sensors_permission_message" />
 
   <!-- For dynamic default font styles -->
   <java-symbol type="string" name="config_bodyFontFamily" />
