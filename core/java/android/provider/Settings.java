@@ -10730,6 +10730,15 @@ public final class Settings {
                 "ambient_context_event_array_key";
 
         /**
+         * Whether to auto grant OTHER_SENSORS special runtime permission to new user apps (0 or 1).
+         * @hide
+         */
+        public static final String AUTO_GRANT_OTHER_SENSORS_PERMISSION = "auto_grant_OTHER_SENSORS_perm";
+
+        /** @hide */
+        public static final int AUTO_GRANT_OTHER_SENSORS_PERMISSION_DEFAULT = 1;
+
+        /**
          * Controls whether aware is enabled.
          * @hide
          */
