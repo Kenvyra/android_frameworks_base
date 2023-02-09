@@ -123,6 +123,7 @@ import com.android.internal.annotations.Immutable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.gmscompat.sysservice.GmcPackageManager;
 import com.android.internal.os.SomeArgs;
+import com.android.internal.util.PropImitationHooks;
 import com.android.internal.util.UserIcons;
 
 import com.nvidia.NvAppProfileService;
@@ -773,7 +774,8 @@ public class ApplicationPackageManager extends PackageManager {
 
     @Override
     public boolean hasSystemFeature(String name) {
-        return hasSystemFeature(name, 0);
+        return PropImitationHooks.hasSystemFeature(name,
+                mHasSystemFeatureCache.query(new HasSystemFeatureQuery(name, 0)));
     }
 
     /**
