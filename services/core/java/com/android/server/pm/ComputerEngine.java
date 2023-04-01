@@ -5137,14 +5137,15 @@ public class ComputerEngine implements Computer {
         }
 
         InstallSource installSource = ps.getInstallSource();
-        if (installSource != null && callingUid != Process.SYSTEM_UID
+        PackageStateInternal playStore = mSettings.getPackage(PLAY_STORE);
+        if (installSource != null && playStore != null && callingUid != Process.SYSTEM_UID
                 && (AURORA_STORE.equals(installSource.installerPackageName)
                 || AURORA_SERVICES.equals(installSource.installerPackageName))) {
             return InstallSource.create(PLAY_STORE, PLAY_STORE, PLAY_STORE, null,
                             PackageInstaller.PACKAGE_SOURCE_STORE,
                             ps.getInstallSource().isOrphaned, false)
                     .setInitiatingPackageSignatures(new PackageSignatures(
-                            mSettings.getPackage(PLAY_STORE).getSigningDetails()));
+                            playStore.getSigningDetails()));
         }
 
         return ps.getInstallSource();
