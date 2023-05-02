@@ -701,6 +701,8 @@ public final class GmsHooks {
     public static void onEndGmsServiceBrokerCall() {
         Log.d(TAG, "end self permission check spoofing");
         tlPermissionsToSpoof.set(null);
+        // invalidate the cache of permission state inside GmsCore
+        GmcPackageManager.notifyPermissionsChangeListeners();
     }
 
     public static IBinder maybeOverrideBinder(IBinder binder) {
