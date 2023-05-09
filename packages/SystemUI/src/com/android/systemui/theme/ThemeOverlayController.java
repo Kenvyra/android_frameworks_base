@@ -42,6 +42,7 @@ import android.database.ContentObserver;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
@@ -577,6 +578,8 @@ public class ThemeOverlayController implements CoreStartable, Dumpable {
             }
         }
 
+        setBootColorSystemProps();
+
         updateThemeOverlays();
     }
 
@@ -791,5 +794,30 @@ public class ThemeOverlayController implements CoreStartable, Dumpable {
         pw.println("mAcceptColorEvents=" + mAcceptColorEvents);
         pw.println("mDeferredThemeEvaluation=" + mDeferredThemeEvaluation);
         pw.println("mThemeStyle=" + mThemeStyle);
+    }
+
+    public final void setBootColorSystemProps() {
+        try {
+            int[] bootColors = getBootColors();
+            int i = 0;
+            int length = bootColors.length;
+            while (i < length) {
+                int i2 = bootColors[i];
+                i++;
+                SystemProperties.set("persist.bootanim.color" + i, Integer.toString(i2));
+                Log.d("ThemeOverlayController", "Writing boot animation colors " + i + ": " + i2);
+            }
+        } catch (RuntimeException unused) {
+            Log.w("ThemeOverlayController", "Cannot set sysprop. Look for 'init' and 'dmesg' logs for more info.");
+        }
+    }
+
+    private final int[] getBootColors() {
+        return new int[]{
+            mResources.getColor(android.R.color.system_accent3_100),
+            mResources.getColor(android.R.color.system_accent1_300),
+            mResources.getColor(android.R.color.system_accent2_500),
+            mResources.getColor(android.R.color.system_accent1_100)
+        };
     }
 }
