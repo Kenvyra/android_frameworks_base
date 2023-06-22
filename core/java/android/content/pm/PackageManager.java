@@ -1537,7 +1537,8 @@ public abstract class PackageManager {
     /** @hide */
     @IntDef(flag = true, value = {
             DONT_KILL_APP,
-            SYNCHRONOUS
+            SYNCHRONOUS,
+            SKIP_IF_MISSING,
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface EnabledFlags {}
@@ -1558,6 +1559,9 @@ public abstract class PackageManager {
      * this flag should be run on a background thread.
      */
     public static final int SYNCHRONOUS = 0x00000002;
+
+    /** @hide */
+    public static final int SKIP_IF_MISSING = 0x4000_0000;
 
     /** @hide */
     @IntDef(prefix = { "INSTALL_REASON_" }, value = {

@@ -116,6 +116,8 @@ public final class GmsHooks {
         }
 
         Thread.setUncaughtExceptionPreHandler(new UncaughtExceptionPreHandler());
+
+        GmcPackageManager.init(ctx);
     }
 
     static Object configUpdateLock;
