@@ -42,6 +42,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.DeadSystemRuntimeException;
+import android.os.IBinder;
 import android.os.Parcel;
 import android.os.PowerExemptionManager;
 import android.os.Process;
@@ -698,6 +699,26 @@ public final class GmsHooks {
     public static void onEndGmsServiceBrokerCall() {
         Log.d(TAG, "end self permission check spoofing");
         tlPermissionsToSpoof.set(null);
+    }
+
+    public static IBinder maybeOverrideBinder(IBinder binder) {
+        boolean proceed = GmsCompat.isEnabled() || GmsCompat.isClientOfGmsCore();
+        if (!proceed) {
+            return null;
+        }
+
+        String ifaceName = null;
+        try {
+            ifaceName = binder.getInterfaceDescriptor();
+        } catch (RemoteException e) {
+            Log.d(TAG, "", e);
+        }
+
+        if (ifaceName == null) {
+            return null;
+        }
+
+        return GmcBinderDefs.maybeOverrideBinder(binder, ifaceName);
     }
 
     private GmsHooks() {}

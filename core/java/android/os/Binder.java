@@ -27,7 +27,6 @@ import android.util.Log;
 import android.util.Slog;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.gmscompat.BinderRedirector;
 import com.android.internal.gmscompat.GmsHooks;
 import com.android.internal.os.BinderCallHeavyHitterWatcher;
 import com.android.internal.os.BinderCallHeavyHitterWatcher.BinderCallHeavyHitterListener;
@@ -660,16 +659,15 @@ public class Binder implements IBinder {
         mOwner = owner;
         mDescriptor = descriptor;
 
-        if (BinderRedirector.enabled()) {
-            mPerformRedirectionCheck = "com.google.android.gms.common.internal.IGmsCallbacks".equals(descriptor);
-        }
+        // Interface that is used when obtaining a binder from GmsCore
+        mIsIGmsCallbacks = "com.google.android.gms.common.internal.IGmsCallbacks".equals(descriptor);
 
         if (GmsCompat.isGmsCore()) {
             mIsGmsServiceBroker = GmsHooks.GMS_SERVICE_BROKER_INTERFACE_DESCRIPTOR.equals(descriptor);
         }
     }
 
-    private boolean mPerformRedirectionCheck;
+    private boolean mIsIGmsCallbacks;
     private boolean mIsGmsServiceBroker;
 
     /**
@@ -1293,7 +1291,7 @@ public class Binder implements IBinder {
         }
 
         final boolean tracingEnabled = tagEnabled && transactionTraceName != null;
-        data.mPerformBinderRedirectionCheck = mPerformRedirectionCheck;
+        data.mCallMaybeOverrideBinder = mIsIGmsCallbacks;
         boolean onBeginGmsServiceBrokerCallRet = false;
         try {
             if (mIsGmsServiceBroker) {
@@ -1339,7 +1337,7 @@ public class Binder implements IBinder {
             }
             res = true;
         } finally {
-            data.mPerformBinderRedirectionCheck = false;
+            data.mCallMaybeOverrideBinder = false;
             if (onBeginGmsServiceBrokerCallRet) {
                 GmsHooks.onEndGmsServiceBrokerCall();
             }
