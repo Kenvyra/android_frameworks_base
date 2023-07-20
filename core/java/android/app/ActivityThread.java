@@ -4487,7 +4487,7 @@ public final class ActivityThread extends ClientTransactionHandler
             }
             {
                 String className = data.info.name;
-                service = GmsHooks.maybeInstantiateService(className);
+                service = ActivityThreadHooks.instantiateService(className);
                 if (service == null) {
                     service = packageInfo.getAppFactory()
                             .instantiateService(cl, className, data.intent);
