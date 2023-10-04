@@ -76,7 +76,7 @@ public class PropImitationHooks {
         "DEVICE", "cheetah",
         "PRODUCT", "cheetah",
         "MODEL", "Pixel 7 Pro",
-        "FINGERPRINT", "google/cheetah/cheetah:13/TQ3A.230705.001/10216780:user/release-keys"
+        "FINGERPRINT", "google/cheetah/cheetah:13/TQ3A.230901.001/10750268:user/release-keys"
     );
 
     private static final Map<String, Object> sPixelProps = Map.of(
@@ -85,7 +85,7 @@ public class PropImitationHooks {
         "DEVICE", "redfin",
         "PRODUCT", "redfin",
         "MODEL", "Pixel 5",
-        "FINGERPRINT", "google/redfin/redfin:13/TQ3A.230805.001/10316531:user/release-keys"
+        "FINGERPRINT", "google/redfin/redfin:13/TQ3A.230901.001/10750268:user/release-keys"
     );
 
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
